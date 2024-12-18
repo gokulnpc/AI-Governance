@@ -29,9 +29,7 @@ export const SignupPage: React.FC = () => {
                 Block Convey
               </span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              Start Your Free Trial
-            </h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Sign Up</h1>
             <p className="text-gray-600">
               Experience enterprise-grade AI governance
             </p>
