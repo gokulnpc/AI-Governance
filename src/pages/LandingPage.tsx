@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/landing/Navbar";
 import { Hero } from "../components/landing/Hero";
 import { Features } from "../components/landing/Features";
 import { Footer } from "../components/landing/Footer";
 
 export const LandingPage: React.FC = () => {
-  const navigate = useNavigate();
   useEffect(() => {
     // Load particles.js from CDN
     const script = document.createElement("script");
@@ -138,9 +136,6 @@ export const LandingPage: React.FC = () => {
       document.body.removeChild(script);
     };
   }, []);
-  const handleDemoClick = () => {
-    navigate("/platform");
-  };
 
   return (
     <div className="relative min-h-screen">
@@ -156,9 +151,9 @@ export const LandingPage: React.FC = () => {
       <main className="pt-16">
         {" "}
         {/* Add padding-top to account for fixed navbar */}
-        <Hero onDemoClick={handleDemoClick} />
+        <Hero />
         <Features />
-        <Footer onDemoClick={handleDemoClick} />
+        <Footer />
       </main>
     </div>
   );
