@@ -1,4 +1,4 @@
-import { Model } from '../types/model';
+import { Model } from "../types/model";
 
 export const models: Model[] = [
   {
@@ -15,21 +15,21 @@ export const models: Model[] = [
         date: "2024-05-01",
         type: "Accuracy Test",
         score: 0.95,
-        status: "Passed"
+        status: "Passed",
       },
       {
         date: "2024-05-01",
         type: "Bias Check",
         score: 0.92,
-        status: "Passed"
+        status: "Passed",
       },
       {
         date: "2024-05-01",
         type: "Reliability Test",
         score: 0.94,
-        status: "Passed"
-      }
-    ]
+        status: "Passed",
+      },
+    ],
   },
   {
     id: 2,
@@ -45,8 +45,8 @@ export const models: Model[] = [
         date: "2024-05-02",
         type: "Accuracy Test",
         score: 0.88,
-        status: "In Progress"
-      }
-    ]
-  }
+        status: "In Progress",
+      },
+    ],
+  },
 ];
