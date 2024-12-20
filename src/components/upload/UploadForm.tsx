@@ -101,13 +101,13 @@ export const UploadForm: React.FC<UploadFormProps> = ({
         name: formData.name,
         version: formData.version,
         uploadDate: new Date().toISOString().split("T")[0],
-        status: "Testing In Progress",
+        status: "Complete",
         type: selectedFile.type || "Unknown",
         framework: formData.framework,
         hash: generateBlockchainHash(),
         tests: [],
       });
-
+      console.log("New model added:", newModel);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       onComplete({ ...formData, file: selectedFile });
     } catch (error) {

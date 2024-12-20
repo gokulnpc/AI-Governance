@@ -1,19 +1,41 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Alert, AlertDescription } from '../ui/alert';
-import { Hash, GitBranch, Shield, FileText, Download } from 'lucide-react';
-import { Model } from '../../types/model';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Alert, AlertDescription } from "../ui/alert";
+import { Hash, GitBranch, Shield, FileText, Download } from "lucide-react";
+import { Model } from "../../types/model";
 
 interface BlockchainReportProps {
   model: Model;
 }
 
-export const BlockchainReport: React.FC<BlockchainReportProps> = ({ model }) => {
+export const BlockchainReport: React.FC<BlockchainReportProps> = ({
+  model,
+}) => {
   const generateReport = () => {
     // In a real implementation, this would generate a PDF report
-    console.log('Generating report for model:', model.name);
+    console.log("Generating report for model:", model.name);
   };
-
+  // create a dummny verfication ststus data
+  model.tests = [
+    {
+      type: "Accuracy Test",
+      status: "Passed",
+      score: 0.95,
+      date: "2021-10-15",
+    },
+    {
+      type: "Bias Check",
+      status: "Passed",
+      score: 0.92,
+      date: "2021-10-15",
+    },
+    {
+      type: "Reliability Test",
+      status: "Passed",
+      score: 0.94,
+      date: "2021-10-15",
+    },
+  ];
   return (
     <div className="space-y-6">
       <Card>
@@ -56,9 +78,13 @@ export const BlockchainReport: React.FC<BlockchainReportProps> = ({ model }) => 
                   {model.tests.map((test, idx) => (
                     <div key={idx} className="flex justify-between">
                       <span>{test.type}</span>
-                      <span className={`font-medium ${
-                        test.status === 'Passed' ? 'text-green-600' : 'text-yellow-600'
-                      }`}>
+                      <span
+                        className={`font-medium ${
+                          test.status === "Passed"
+                            ? "text-green-600"
+                            : "text-yellow-600"
+                        }`}
+                      >
                         {test.status}
                       </span>
                     </div>
@@ -74,11 +100,15 @@ export const BlockchainReport: React.FC<BlockchainReportProps> = ({ model }) => 
               </h4>
               <div className="space-y-2">
                 {model.tests.map((test, idx) => (
-                  <div key={idx} className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                  <div
+                    key={idx}
+                    className="flex justify-between items-center p-3 bg-gray-50 rounded"
+                  >
                     <div>
                       <div className="font-medium">{test.type}</div>
                       <div className="text-sm text-gray-500">
-                        Score: {(test.score * 100).toFixed(1)}% | Date: {test.date}
+                        Score: {(test.score * 100).toFixed(1)}% | Date:{" "}
+                        {test.date}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -108,8 +138,9 @@ export const BlockchainReport: React.FC<BlockchainReportProps> = ({ model }) => 
           <div className="text-blue-800">
             <p className="font-medium">Blockchain Verification</p>
             <p className="text-sm mt-1">
-              All quality metrics and test results are cryptographically verified on the Block Convey network. 
-              Each attestation includes a unique hash that can be independently verified.
+              All quality metrics and test results are cryptographically
+              verified on the Block Convey network. Each attestation includes a
+              unique hash that can be independently verified.
             </p>
           </div>
         </AlertDescription>
