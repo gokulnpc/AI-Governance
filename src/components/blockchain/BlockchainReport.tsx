@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Alert, AlertDescription } from "../ui/alert";
 import { Hash, GitBranch, Shield, FileText, Download } from "lucide-react";
 import { Model } from "../../types/model";
+import jsPDF from "jspdf";
 
 interface BlockchainReportProps {
   model: Model;
@@ -12,10 +13,53 @@ export const BlockchainReport: React.FC<BlockchainReportProps> = ({
   model,
 }) => {
   const generateReport = () => {
-    // In a real implementation, this would generate a PDF report
-    console.log("Generating report for model:", model.name);
+    const doc = new jsPDF();
+
+    // Add title
+    doc.setFontSize(18);
+    doc.text("Report for Model: " + model.name, 10, 10);
+
+    // Add Chain of Custody section
+    doc.setFontSize(14);
+    doc.text("Chain of Custody:", 10, 20);
+    doc.setFontSize(12);
+    doc.text(`- Upload Hash: ${model.hash}`, 10, 30);
+    doc.text(`- Merkle Root: 0x8f23...`, 10, 40);
+    doc.text(`- Block Number: 15,234,567`, 10, 50);
+
+    // Add Verification Status section
+    doc.setFontSize(14);
+    doc.text("Verification Status:", 10, 60);
+    doc.setFontSize(12);
+    model.tests.forEach((test, index) => {
+      doc.text(
+        `- ${test.type}: ${test.status} (Score: ${(test.score * 100).toFixed(
+          1
+        )}%)`,
+        10,
+        70 + index * 10
+      );
+    });
+
+    // Add Quality Attestations section
+    doc.setFontSize(14);
+    doc.text("Quality Attestations:", 10, 90 + model.tests.length * 10);
+    doc.setFontSize(12);
+    model.tests.forEach((test, index) => {
+      doc.text(
+        `- ${test.type}: Score: ${(test.score * 100).toFixed(1)}% | Date: ${
+          test.date
+        }`,
+        10,
+        100 + model.tests.length * 10 + index * 10
+      );
+    });
+
+    // Save the PDF
+    doc.save(`${model.name}_report.pdf`);
   };
-  // create a dummny verfication ststus data
+
+  // create a dummy verification status data
   model.tests = [
     {
       type: "Accuracy Test",
@@ -36,6 +80,7 @@ export const BlockchainReport: React.FC<BlockchainReportProps> = ({
       date: "2021-10-15",
     },
   ];
+
   return (
     <div className="space-y-6">
       <Card>
