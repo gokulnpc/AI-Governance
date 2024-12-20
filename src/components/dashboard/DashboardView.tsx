@@ -1,19 +1,21 @@
-import React from 'react';
-import { SystemHealth } from './panels/SystemHealth';
-import { ModelLifecycle } from './panels/ModelLifecycle';
-import { BiasMonitoring } from './panels/BiasMonitoring';
-import { ComplianceTracking } from './panels/ComplianceTracking';
-import { RiskManagement } from './panels/RiskManagement';
-import { DataQuality } from './panels/DataQuality';
-import { ModelPerformance } from './panels/ModelPerformance';
-import { ActivityLog } from './ActivityLog';
-import { Model } from '../../types/model';
+import React from "react";
+import { SystemHealth } from "./panels/SystemHealth";
+import { ModelLifecycle } from "./panels/ModelLifecycle";
+import { BiasMonitoring } from "./panels/BiasMonitoring";
+import { ComplianceTracking } from "./panels/ComplianceTracking";
+import { RiskManagement } from "./panels/RiskManagement";
+import { DataQuality } from "./panels/DataQuality";
+import { ModelPerformance } from "./panels/ModelPerformance";
+import { ActivityLog } from "../activity/ActivityLog";
+import { Model } from "../../types/model";
 
 interface DashboardViewProps {
   onViewDetails: (model: Model) => void;
 }
 
-export const DashboardView: React.FC<DashboardViewProps> = ({ onViewDetails }) => {
+export const DashboardView: React.FC<DashboardViewProps> = ({
+  onViewDetails,
+}) => {
   return (
     <div className="space-y-6">
       {/* Overview Section */}
@@ -41,10 +43,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onViewDetails }) =
 
       {/* Activity Tracking */}
       <div className="grid grid-cols-1 gap-6">
-        <ActivityLog 
-          logs={[]} 
-          onViewDetails={onViewDetails}
-        />
+        <ActivityLog />
       </div>
     </div>
   );

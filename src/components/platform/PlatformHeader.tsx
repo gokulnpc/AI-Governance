@@ -12,7 +12,6 @@ export const PlatformHeader: React.FC<PlatformHeaderProps> = ({
     <div className="flex-1 flex items-center justify-between">
       <div>
         <div className="flex items-center gap-2">
-          <Shield className="h-6 w-6 text-blue-600" />
           <h1 className="text-2xl font-bold text-gray-900">
             AI Governance Monitor
           </h1>
