@@ -1,6 +1,13 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card';
-import { Shield, CreditCard, LineChart, Briefcase, AlertTriangle } from 'lucide-react';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import {
+  Shield,
+  CreditCard,
+  LineChart,
+  Briefcase,
+  AlertTriangle,
+  Lock,
+} from "lucide-react";
 
 interface Profile {
   id: string;
@@ -8,64 +15,127 @@ interface Profile {
   description: string;
   icon: React.ElementType;
   requirements: string[];
-  riskLevel: 'high' | 'medium' | 'low';
+  riskLevel: "high" | "medium" | "low";
   regulatoryFrameworks: string[];
 }
 
+// const profiles: Profile[] = [
+//   {
+//     id: 'credit',
+//     name: 'Credit Risk Assessment',
+//     description: 'Models for credit scoring and loan approval decisions',
+//     icon: CreditCard,
+//     riskLevel: 'high',
+//     regulatoryFrameworks: ['FCRA', 'ECOA', 'GDPR'],
+//     requirements: [
+//       'Equal treatment across demographic groups',
+//       'Transparent decision rationale',
+//       'Historical bias mitigation',
+//       'Income-based fairness',
+//       'Protected class variable handling'
+//     ]
+//   },
+//   {
+//     id: 'financial',
+//     name: 'Financial Advisory',
+//     description: 'Investment and financial planning recommendation systems',
+//     icon: LineChart,
+//     riskLevel: 'medium',
+//     regulatoryFrameworks: ['SEC Guidelines', 'MiFID II'],
+//     requirements: [
+//       'Risk tolerance assessment',
+//       'Age-appropriate recommendations',
+//       'Socioeconomic fairness',
+//       'Clear risk communication',
+//       'Investment suitability checks'
+//     ]
+//   },
+//   {
+//     id: 'insurance',
+//     name: 'Insurance Claims',
+//     description: 'Automated claims processing and risk assessment',
+//     icon: Shield,
+//     riskLevel: 'high',
+//     regulatoryFrameworks: ['HIPAA', 'State Insurance Regulations'],
+//     requirements: [
+//       'Geographic fairness',
+//       'Demographic neutrality',
+//       'Consistent evaluation criteria',
+//       'Explainable decisions',
+//       'Protected health information handling'
+//     ]
+//   }
+// ];
+
 const profiles: Profile[] = [
   {
-    id: 'credit',
-    name: 'Credit Risk Assessment',
-    description: 'Models for credit scoring and loan approval decisions',
+    id: "credit",
+    name: "Credit Risk Assessment",
+    description: "Models for credit scoring and loan approval decisions",
     icon: CreditCard,
-    riskLevel: 'high',
-    regulatoryFrameworks: ['FCRA', 'ECOA', 'GDPR'],
+    riskLevel: "high",
+    regulatoryFrameworks: ["FCRA", "ECOA", "GDPR"],
     requirements: [
-      'Equal treatment across demographic groups',
-      'Transparent decision rationale',
-      'Historical bias mitigation',
-      'Income-based fairness',
-      'Protected class variable handling'
-    ]
+      "Equal treatment across demographic groups",
+      "Transparent decision rationale",
+      "Historical bias mitigation",
+      "Income-based fairness",
+      "Protected class variable handling",
+    ],
   },
   {
-    id: 'financial',
-    name: 'Financial Advisory',
-    description: 'Investment and financial planning recommendation systems',
+    id: "financial",
+    name: "Financial Advisory",
+    description: "Investment and financial planning recommendation systems",
     icon: LineChart,
-    riskLevel: 'medium',
-    regulatoryFrameworks: ['SEC Guidelines', 'MiFID II'],
+    riskLevel: "medium",
+    regulatoryFrameworks: ["SEC Guidelines", "MiFID II"],
     requirements: [
-      'Risk tolerance assessment',
-      'Age-appropriate recommendations',
-      'Socioeconomic fairness',
-      'Clear risk communication',
-      'Investment suitability checks'
-    ]
+      "Risk tolerance assessment",
+      "Age-appropriate recommendations",
+      "Socioeconomic fairness",
+      "Clear risk communication",
+      "Investment suitability checks",
+    ],
   },
   {
-    id: 'insurance',
-    name: 'Insurance Claims',
-    description: 'Automated claims processing and risk assessment',
+    id: "insurance",
+    name: "Insurance Claims",
+    description: "Automated claims processing and risk assessment",
     icon: Shield,
-    riskLevel: 'high',
-    regulatoryFrameworks: ['HIPAA', 'State Insurance Regulations'],
+    riskLevel: "high",
+    regulatoryFrameworks: ["HIPAA", "State Insurance Regulations"],
     requirements: [
-      'Geographic fairness',
-      'Demographic neutrality',
-      'Consistent evaluation criteria',
-      'Explainable decisions',
-      'Protected health information handling'
-    ]
-  }
+      "Geographic fairness",
+      "Demographic neutrality",
+      "Consistent evaluation criteria",
+      "Explainable decisions",
+      "Protected health information handling",
+    ],
+  },
+  {
+    id: "fraud",
+    name: "Fraud Detection Governance",
+    description: "Systems for detecting and preventing fraudulent activities",
+    icon: Lock,
+    riskLevel: "high",
+    regulatoryFrameworks: ["AML", "GDPR", "CFT"],
+    requirements: [
+      "Anomaly detection accuracy",
+      "Bias minimization in flagged cases",
+      "Real-time monitoring capabilities",
+      "Data privacy safeguards",
+      "Transparent and explainable alerts",
+    ],
+  },
 ];
 
 interface ModelProfileSelectionProps {
   onProfileSelect: (profile: Profile) => void;
 }
 
-export const ModelProfileSelection: React.FC<ModelProfileSelectionProps> = ({ 
-  onProfileSelect 
+export const ModelProfileSelection: React.FC<ModelProfileSelectionProps> = ({
+  onProfileSelect,
 }) => {
   return (
     <Card>
@@ -82,11 +152,13 @@ export const ModelProfileSelection: React.FC<ModelProfileSelectionProps> = ({
             <div>
               <p className="font-medium text-yellow-800">Important Notice</p>
               <p className="text-sm text-yellow-700">
-                The selected profile will determine the specific bias testing scenarios and regulatory compliance checks applied to your model.
+                The selected profile will determine the specific bias testing
+                scenarios and regulatory compliance checks applied to your
+                model.
               </p>
             </div>
           </div>
-          
+
           <div className="grid gap-4">
             {profiles.map((profile) => {
               const Icon = profile.icon;
@@ -103,37 +175,44 @@ export const ModelProfileSelection: React.FC<ModelProfileSelectionProps> = ({
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
                         <h3 className="font-medium">{profile.name}</h3>
-                        <span className={`text-sm px-2 py-1 rounded ${
-                          profile.riskLevel === 'high' 
-                            ? 'bg-red-100 text-red-700'
-                            : 'bg-yellow-100 text-yellow-700'
-                        }`}>
-                          {profile.riskLevel.charAt(0).toUpperCase() + profile.riskLevel.slice(1)} Risk
-                        </span>
                       </div>
-                      <p className="text-sm text-gray-600 mb-3">{profile.description}</p>
-                      
+                      <p className="text-sm text-gray-600 mb-3">
+                        {profile.description}
+                      </p>
+
                       <div className="space-y-3">
                         <div>
-                          <h4 className="text-sm font-medium mb-2">Testing Requirements:</h4>
+                          <h4 className="text-sm font-medium mb-2">
+                            Testing Requirements:
+                          </h4>
                           <div className="space-y-1">
                             {profile.requirements.map((req, idx) => (
-                              <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                              <div
+                                key={idx}
+                                className="flex items-center gap-2 text-sm text-gray-600"
+                              >
                                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
                                 {req}
                               </div>
                             ))}
                           </div>
                         </div>
-                        
+
                         <div>
-                          <h4 className="text-sm font-medium mb-2">Regulatory Frameworks:</h4>
+                          <h4 className="text-sm font-medium mb-2">
+                            Regulatory Frameworks:
+                          </h4>
                           <div className="flex flex-wrap gap-2">
-                            {profile.regulatoryFrameworks.map((framework, idx) => (
-                              <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
-                                {framework}
-                              </span>
-                            ))}
+                            {profile.regulatoryFrameworks.map(
+                              (framework, idx) => (
+                                <span
+                                  key={idx}
+                                  className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
+                                >
+                                  {framework}
+                                </span>
+                              )
+                            )}
                           </div>
                         </div>
                       </div>

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card';
-import { Progress } from '../../ui/progress';
-import { Loader2, CheckCircle2, AlertTriangle } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { Progress } from "../../ui/progress";
+import { Loader2, CheckCircle2, AlertTriangle } from "lucide-react";
 
 export interface TestResult {
   name: string;
-  status: 'pending' | 'running' | 'complete' | 'warning';
+  status: "pending" | "running" | "complete" | "warning";
   progress: number;
   result?: {
     score: number;
@@ -21,15 +21,16 @@ interface TestingProgressProps {
   onComplete: (results: TestResult[]) => void;
 }
 
-export const TestingProgress: React.FC<TestingProgressProps> = ({ 
+export const TestingProgress: React.FC<TestingProgressProps> = ({
   profile,
-  onComplete
+  onComplete,
 }) => {
   const [tests, setTests] = useState<TestResult[]>([
-    { name: 'Bias Detection', status: 'pending', progress: 0 },
-    { name: 'Fairness Analysis', status: 'pending', progress: 0 },
-    { name: 'Regulatory Compliance', status: 'pending', progress: 0 },
-    { name: 'Performance Stability', status: 'pending', progress: 0 }
+    { name: "Bias Detection", status: "pending", progress: 0 },
+    { name: "Fairness Analysis", status: "pending", progress: 0 },
+    { name: "Regulatory Compliance", status: "pending", progress: 0 },
+    { name: "Performance Stability", status: "pending", progress: 0 },
+    { name: "Drift Detection", status: "pending", progress: 0 },
   ]);
 
   useEffect(() => {
@@ -38,38 +39,41 @@ export const TestingProgress: React.FC<TestingProgressProps> = ({
 
       for (let i = 0; i < tests.length; i++) {
         // Update test to running
-        setTests(prev => prev.map((test, idx) => 
-          idx === i ? { ...test, status: 'running' } : test
-        ));
+        setTests((prev) =>
+          prev.map((test, idx) =>
+            idx === i ? { ...test, status: "running" } : test
+          )
+        );
 
         // Simulate test progress
         for (let progress = 0; progress <= 100; progress += 10) {
-          await new Promise(resolve => setTimeout(resolve, 300));
-          setTests(prev => prev.map((test, idx) => 
-            idx === i ? { ...test, progress } : test
-          ));
+          await new Promise((resolve) => setTimeout(resolve, 300));
+          setTests((prev) =>
+            prev.map((test, idx) => (idx === i ? { ...test, progress } : test))
+          );
         }
 
         // Complete test with results
-        const status = Math.random() > 0.7 ? 'warning' : 'complete';
+        const status = Math.random() > 0.7 ? "warning" : "complete";
         const result = {
           score: 0.85 + Math.random() * 0.1,
-          details: status === 'warning' 
-            ? 'Some potential issues detected that require attention'
-            : 'Test completed successfully with good results'
+          details:
+            status === "warning"
+              ? "Some potential issues detected that require attention"
+              : "Test completed successfully with good results",
         };
 
         const updatedTest = {
           ...tests[i],
           status,
           progress: 100,
-          result
+          result,
         };
 
         updatedTests.push(updatedTest);
-        setTests(prev => prev.map((test, idx) => 
-          idx === i ? updatedTest : test
-        ));
+        setTests((prev) =>
+          prev.map((test, idx) => (idx === i ? updatedTest : test))
+        );
       }
 
       // Notify completion with final results
@@ -81,13 +85,13 @@ export const TestingProgress: React.FC<TestingProgressProps> = ({
     runTests();
   }, []);
 
-  const getStatusIcon = (status: TestResult['status']) => {
+  const getStatusIcon = (status: TestResult["status"]) => {
     switch (status) {
-      case 'running':
+      case "running":
         return <Loader2 className="h-5 w-5 animate-spin text-blue-500" />;
-      case 'complete':
+      case "complete":
         return <CheckCircle2 className="h-5 w-5 text-green-500" />;
-      case 'warning':
+      case "warning":
         return <AlertTriangle className="h-5 w-5 text-yellow-500" />;
       default:
         return null;
@@ -108,16 +112,19 @@ export const TestingProgress: React.FC<TestingProgressProps> = ({
                   {getStatusIcon(test.status)}
                   <span className="font-medium">{test.name}</span>
                 </div>
-                <span className="text-sm text-gray-500">
-                  {test.progress}%
-                </span>
+                <span className="text-sm text-gray-500">{test.progress}%</span>
               </div>
               <Progress value={test.progress} />
               {test.result && (
-                <div className={`text-sm ${
-                  test.status === 'warning' ? 'text-yellow-600' : 'text-green-600'
-                }`}>
-                  Score: {(test.result.score * 100).toFixed(1)}% - {test.result.details}
+                <div
+                  className={`text-sm ${
+                    test.status === "warning"
+                      ? "text-yellow-600"
+                      : "text-green-600"
+                  }`}
+                >
+                  Score: {(test.result.score * 100).toFixed(1)}% -{" "}
+                  {test.result.details}
                 </div>
               )}
             </div>
