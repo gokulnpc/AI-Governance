@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, ArrowRight, Mail, Lock } from "lucide-react";
-
+import logo from "../assets/logo.png";
 export const SignupPage: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -24,10 +24,7 @@ export const SignupPage: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <Shield className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Block Convey
-              </span>
+              <img src={logo} alt="Block Convey" className="h-12 w-25" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Sign Up</h1>
             <p className="text-gray-600">
